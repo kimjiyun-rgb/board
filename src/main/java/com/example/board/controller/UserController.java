@@ -27,7 +27,7 @@ public class UserController {
 	
 	@PostMapping("/signin")
 	public String signinPost(@ModelAttribute User user) {
-		User dbUser = 
+		User dbUser =  
 			userRepository.findByEmail(user.getEmail());
 		if(dbUser != null) {
 			String dbPwd = dbUser.getPwd();
