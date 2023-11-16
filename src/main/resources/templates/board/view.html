@@ -18,7 +18,7 @@
     <div class="card-body">
       <span class="badge bg-primary rounded-pill" th:text="${board.id} + '번'"></span>
       <h5 class="card-title" th:text="${board.title}"></h5>
-      <h6 class="card-subtitle mb-2 text-muted" th:text="${board.userId}"></h6>
+      <h6 class="card-subtitle mb-2 text-muted" th:text="${board.user.email}"></h6>
       <p class="card-text" th:text="${board.content}"></p>
     </div>
   </div>
@@ -29,7 +29,7 @@
       <a class="nav-link" href="#" id="list">목록</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#" id="update">수정</a>
+      <a class="nav-link" th:href="'/board/update/' + ${board.id}" id="update">수정</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#" id="delete" th:num="${board.id}">삭제</a>
