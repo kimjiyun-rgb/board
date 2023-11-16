@@ -46,8 +46,7 @@ public class BoardController {
 	public String boardUpdate(
 			@ModelAttribute Board board, @PathVariable("id") long id) {
 		User user = (User) session.getAttribute("user_info");
-		String userId = user.getEmail();
-		board.setUserId(userId);
+		board.setUser(user);
 		board.setId(id);
 		boardRepository.save(board);
 		return "redirect:/board/" + id;
@@ -81,8 +80,7 @@ public class BoardController {
 	@PostMapping("/board/write")
 	public String boardWrite(@ModelAttribute Board board) {
 		User user = (User) session.getAttribute("user_info");
-		String userId = user.getEmail();
-		board.setUserId(userId);
+		board.setUser(user);
 		boardRepository.save(board);
 
 		return "board/write";
