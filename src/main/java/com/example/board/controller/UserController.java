@@ -28,10 +28,14 @@ public class UserController {
 	@PostMapping("/signin")
 	public String signinPost(@ModelAttribute User user) {
 		User dbUser = 
-			userRepository.findByEmailAndPwd(
-				user.getEmail(), user.getPwd());
+			userRepository.findByEmail(user.getEmail());
 		if(dbUser != null) {
-			session.setAttribute("user_info", dbUser);
+			String dbPwd = dbUser.getPwd();
+			String userPwd = user.getPwd();
+			boolean isMatch = passwordEncoder.matches(userPwd, dbPwd);
+			if(isMatch) {
+				session.setAttribute("user_info", dbUser);
+			}
 		}
 		return "redirect:/";
 	}
