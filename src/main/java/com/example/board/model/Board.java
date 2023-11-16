@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Entity
@@ -14,5 +15,8 @@ public class Board {
 	private long id;
 	private String title;
 	private String content;
-	private String userId;
+	// private String userId;
+	
+	@ManyToOne
+	User user; // user_id 로 생성
 }
