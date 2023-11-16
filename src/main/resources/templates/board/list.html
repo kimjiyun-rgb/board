@@ -28,7 +28,11 @@
         <tbody>
           <tr th:each="board : ${list}" th:attr="id=${board.id}">
             <td th:text="${board.id}"></td>
-            <td th:text="${board.title}"></td>
+            <td>
+              <a th:href="'/board/' + ${board.id}">
+                [[ ${board.title} ]]
+              </a>
+            </td>
             <td th:text="${board.user.email}"></td>
           </tr>
         </tbody>
