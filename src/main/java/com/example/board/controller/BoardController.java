@@ -131,6 +131,7 @@ public class BoardController {
 	public String boardWrite(
 			@ModelAttribute Board board,
 			@RequestParam("file") MultipartFile mFile) {
+		// 제목 또는 내용을 작성하지 않은 경우 글쓰기 기능을 실행하지 않음
 		if (board.getTitle().equals("") || board.getContent().equals("")) {
 			return "redirect:/board/write";
 		}
