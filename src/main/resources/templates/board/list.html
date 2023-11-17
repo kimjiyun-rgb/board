@@ -30,7 +30,7 @@
             <td th:text="${board.id}"></td>
             <td>
               <a th:href="'/board/' + ${board.id}">
-                [[ ${board.title} ]]
+                [[ ${board.title} ]] ( [[ ${#lists.size(board.comments)} ]] )
               </a>
             </td>
             <td th:text="${board.user.email}"></td>
