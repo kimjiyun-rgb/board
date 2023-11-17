@@ -47,6 +47,8 @@
 <ul>
   <li th:each="comment : ${board.comments}">
     [[ ${comment.comment} ]] / [[ ${comment.user.name} ]]
+    <button 
+      th:onclick="location='/board/comment/remove?id=[[${comment.id}]]'">삭제</button>
   </li>
 </ul>
 
