@@ -30,10 +30,10 @@
       <li class="nav-item">
         <a class="nav-link" href="#" id="list">목록</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" th:if="${session.user_info.email} == ${board.user.email}">
         <a class="nav-link" th:href="'/board/update/' + ${board.id}" id="update">수정</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" th:if="${session.user_info.email == board.user.email}">
         <a class="nav-link" th:href="'/board/delete/' + ${board.id}" id="delete" th:num="${board.id}">삭제</a>
       </li>
     </ul>
@@ -64,11 +64,10 @@
         location = "/board/delete/[[ ${board.id} ]]";
       }
     });
-    // document.querySelector('#delete').addEventListener('click', (e) =>
-    // {
+
+    // document.querySelector('#delete').addEventListener('click', (e) => {
     //   e.preventDefault();
-    //   if (confirm('삭제하시겠습니까?'))
-    //   {
+    //   if(confirm('삭제하시겠습니까?')) {
     //     const num = e.target.getAttribute('num');
     //     location = `/board/delete/${num}`;
     //   }
