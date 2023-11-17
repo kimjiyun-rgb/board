@@ -43,6 +43,12 @@
   <input type="text" name="comment">
   <button>댓글 작성</button>
 </form>
+<hr>
+<ul>
+  <li th:each="comment : ${board.comments}">
+    [[ ${comment.comment} ]] / [[ ${comment.user.name} ]]
+  </li>
+</ul>
 
 <script>
   const delBtn = document.querySelector('[id=delete]');
