@@ -28,10 +28,10 @@
     <li class="nav-item">
       <a class="nav-link" href="#" id="list">목록</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" th:if="${session.user_info.email} == ${board.user.email}">
       <a class="nav-link" th:href="'/board/update/' + ${board.id}" id="update">수정</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" th:if="${session.user_info.email == board.user.email}">
       <a class="nav-link" th:href="'/board/delete/' + ${board.id}" id="delete" th:num="${board.id}">삭제</a>
     </li>
   </ul>
@@ -48,7 +48,7 @@
   <li th:each="comment : ${board.comments}">
     [[ ${comment.comment} ]] / [[ ${comment.user.name} ]]
     <button 
-      th:onclick="location='/board/comment/remove?id=[[${comment.id}]]'">삭제</button>
+      th:onclick="location='/board/comment/remove/[[${comment.id}]]'">삭제</button>
   </li>
 </ul>
 
