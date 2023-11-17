@@ -38,7 +38,7 @@
         </tbody>
       </table>
 
-      <a href="/board/list?page=${num}" th:each=" 변수 : ${#numbers.sequence(start, end)} ">
+      <a th:href="'/board/list?page=' + ${num}" th:each="num : ${#numbers.sequence(start, end)}">
         [[ ${num} ]]
       </a>
 

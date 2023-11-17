@@ -103,6 +103,10 @@ public class BoardController {
 		int totalPage = list.getTotalPages();
 		int start = (page - 1) / 10 * 10 + 1;
 		int end = start + 9;
+		// 10 2
+		if (end > totalPage) {
+			end = totalPage;
+		}
 
 		model.addAttribute("list", list);
 		model.addAttribute("start", start);
