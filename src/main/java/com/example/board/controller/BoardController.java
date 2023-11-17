@@ -102,7 +102,13 @@ public class BoardController {
 		Pageable pageable = PageRequest.of(page - 1, 10, sort);
 		Page<Board> list = boardRepository.findAll(pageable);
 		
+		int totalPage = list.getTotalPages();
+		int start = (page - 1) / 10 * 10 + 1;
+		int end = start + 9;
+
 		model.addAttribute("list", list);
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
 		return "board/list";
 	}
 
