@@ -153,6 +153,6 @@ public class BoardController {
 		atchFile.setBoard(savedBoard);
 		atchFileRepository.save(atchFile);
 
-		return "board/write";
+		return "redirect:/board/" + savedBoard.getId();
 	}
 }
