@@ -30,17 +30,27 @@
             <td th:text="${board.id}"></td>
             <td>
               <a th:href="'/board/' + ${board.id}">
-                [[ ${board.title} ]] ( [[ ${#lists.size(board.comments)} ]] )
+                [[ ${board.title} ]]
+                ( [[ ${#lists.size(board.comments)} ]] )
               </a>
             </td>
             <td th:text="${board.user.email}"></td>
           </tr>
         </tbody>
       </table>
+      <!-- 페이지네이션 -->
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
 
-      <a th:href="'/board/list?page=' + ${num}" th:each="num : ${#numbers.sequence(start, end)}">
-        [[ ${num} ]]
-      </a>
+        <li class="page-item" th:each="num : ${#numbers.sequence(start, end)}">
+          <a class="page-link" th:href="'/board/list?page=' + ${num}">
+            [[ ${num} ]]
+          </a>
+        </li>
+
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+      <!-- 페이지네이션 끝 -->
 
       <button type="button" class="btn btn-primary btn-block" id="write-btn">글쓰기</button>
     </div>
@@ -50,6 +60,15 @@
     {
       location = '/board/write';
     });
+    const trs = document.querySelectorAll('tbody > tr');
+    trs.forEach(v =>
+    {
+      v.addEventListener('click', () =>
+      {
+        const id = v.getAttribute('id');
+        location = `/board/${id}`;
+      })
+    })
   </script>
 
   <div th:replace="common/footer">
