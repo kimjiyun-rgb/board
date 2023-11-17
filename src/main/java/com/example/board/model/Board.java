@@ -27,4 +27,7 @@ public class Board {
 
 	@OneToMany(mappedBy = "board")
 	List<Comment> comments = new ArrayList<>();
+
+	@OneToMany(mappedBy = "board")
+	List<AtchFile> atchFiles = new ArrayList<>();
 }
