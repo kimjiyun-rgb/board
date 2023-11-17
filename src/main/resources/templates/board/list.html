@@ -37,6 +37,11 @@
           </tr>
         </tbody>
       </table>
+
+      <a href="" th:each=" 변수 : ${#numbers.sequence(start, end)} ">
+        [[ ${num} ]]
+      </a>
+
       <button type="button" class="btn btn-primary btn-block" id="write-btn">글쓰기</button>
     </div>
   </div>

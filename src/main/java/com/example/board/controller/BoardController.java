@@ -1,6 +1,9 @@
 package com.example.board.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Controller;
@@ -90,14 +93,20 @@ public class BoardController {
 	}
 
 	@GetMapping("/board/list")
-	public String boardList(Model model) {
-		// Sort sort = Sort.by(Sort.Direction.DESC, "id");
-		// List<Board> list = boardRepository.findAll(sort);
-
+	public String boardList(
+			Model model,
+			@RequestParam(defaultValue = "1") int page) {
 		Sort sort = Sort.by(Order.desc("id"));
-		List<Board> list = boardRepository.findAll(sort);
+		Pageable pageable = PageRequest.of(page - 1, 10, sort);
+		Page<Board> list = boardRepository.findAll(pageable);
+
+		int totalPage = list.getTotalPages();
+		int start = (page - 1) / 10 * 10 + 1;
+		int end = start + 9;
 
 		model.addAttribute("list", list);
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
 		return "board/list";
 	}
 
