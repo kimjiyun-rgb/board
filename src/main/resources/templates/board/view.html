@@ -39,6 +39,16 @@
     </ul>
   </div>
   <script>
+    const delBtn = document.querySelector('[id=delete]');
+    delBtn.addEventListener('click', (event) =>
+    {
+      event.prevenDefault();
+      const yesno = confirm("삭제??");
+      if (yesno)
+      {
+        location = "/board/delete/[[ ${board.id} ]]";
+      }
+    });
     // document.querySelector('#delete').addEventListener('click', (e) =>
     // {
     //   e.preventDefault();
