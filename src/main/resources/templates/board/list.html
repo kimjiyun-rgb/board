@@ -40,6 +40,13 @@
   document.querySelector('#write-btn').addEventListener('click', () => {
     location = '/board/write';
   });
+  const trs = document.querySelectorAll('tbody > tr');
+  trs.forEach(v => {
+    v.addEventListener('click', () => {
+      const id = v.getAttribute('id');
+      location = `/board/${id}`;
+    })
+  })
 </script>
 
 <div th:replace="common/footer">
