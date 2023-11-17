@@ -1,6 +1,9 @@
 package com.example.board.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Controller;
@@ -33,13 +36,11 @@ public class BoardController {
 
 	@Autowired CommentRepository commentRepository;
 
-	@GetMapping("/board/comment/remove")
+	@GetMapping("/board/comment/remove/{id}")
 	public String commentRemove(
-		@RequestParam long id
+		@PathVariable long id
 	) {
-		
 		commentRepository.deleteById(id);
-
 		return "redirect:/board/list";
 	}
 
@@ -92,12 +93,14 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/list")
-	public String boardList(Model model) {
-		// Sort sort = Sort.by(Sort.Direction.DESC, "id");
-		// List<Board> list = boardRepository.findAll(sort);
+	public String boardList(
+		Model model,
+		@RequestParam(defaultValue = "1") int page
+  ) {
 
 		Sort sort = Sort.by(Order.desc("id"));
-		List<Board> list = boardRepository.findAll(sort);
+		Pageable pageable = PageRequest.of(page - 1, 10, sort);
+		Page<Board> list = boardRepository.findAll(pageable);
 		
 		model.addAttribute("list", list);
 		return "board/list";
