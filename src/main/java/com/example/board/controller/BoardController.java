@@ -151,6 +151,7 @@ public class BoardController {
 		AtchFile atchFile = new AtchFile();
 		atchFile.setFilePath("c:/springboot/" + oName);
 		atchFile.setBoard(savedBoard);
+		atchFileRepository.save(atchFile);
 
 		return "board/write";
 	}
