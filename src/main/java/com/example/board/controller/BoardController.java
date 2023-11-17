@@ -33,6 +33,15 @@ public class BoardController {
 	@Autowired
 	CommentRepository commentRepository;
 
+	@GetMapping("/board/comment/remove")
+	public String commentRemove(
+			@RequestParam long id) {
+
+		commentRepository.deleteById(id);
+
+		return "redirect:/board/list";
+	}
+
 	@PostMapping("/board/comment/add")
 	public String commentAdd(@ModelAttribute Comment comment, @RequestParam long boardId) {
 		// 1. board_id
