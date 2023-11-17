@@ -140,20 +140,21 @@ public class BoardController {
 		/* AtchFile 데이터 입력 - 파일 첨부 */
 		// 1. 파일 저장 transferTo()
 		String oName = mFile.getOriginalFilename();
-		try {
-			mFile.transferTo(new File("c:/files/" + oName));
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(!oName.equals("")) {
+			try {
+				mFile.transferTo(new File("c:/files/" + oName));
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			// 2. 파일이 저장된 위치와 파일이름 데이터베이스에 입력
+			AtchFile atchFile = new AtchFile();
+			atchFile.setFilePath("c:/files/" + oName);
+			atchFile.setBoard(savedBoard);
+			atchFileRepository.save(atchFile);
 		}
-
-		// 2. 파일이 저장된 위치와 파일이름 데이터베이스에 입력
-		AtchFile atchFile = new AtchFile();
-		atchFile.setFilePath("c:/files/" + oName);
-		atchFile.setBoard(savedBoard);
-		atchFileRepository.save(atchFile);
-
 		return "redirect:/board/" + savedBoard.getId();
 	}
 }

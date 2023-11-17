@@ -21,7 +21,8 @@
       <h6 class="card-subtitle mb-2 text-muted" th:text="${board.user.email}"></h6>
       <p class="card-text" th:text="${board.content}"></p>
     </div>
-    <img th:src="'/download?id=' + ${board.atchFiles[0].id}">
+    <img th:src="'/download?id=' + ${atchFile.id}"
+         th:each="atchFile : ${board.atchFiles}">
   </div>
 </div> 
 <div class="container mt-5">
