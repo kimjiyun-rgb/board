@@ -35,7 +35,8 @@
       </tbody>
     </table>
     
-    <a href="" th:each=" num : ${#numbers.sequence(start, end)} ">
+    <a th:href="'/board/list?page=' + ${num}" 
+       th:each="num : ${#numbers.sequence(start, end)}">
       [[ ${num} ]]
     </a>
 
