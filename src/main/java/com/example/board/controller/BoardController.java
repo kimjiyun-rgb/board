@@ -20,10 +20,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-
+import com.example.board.model.AtchFile;
 import com.example.board.model.Board;
 import com.example.board.model.Comment;
 import com.example.board.model.User;
+import com.example.board.repository.AtchFileRepository;
 import com.example.board.repository.BoardRepository;
 import com.example.board.repository.CommentRepository;
 
@@ -124,6 +125,8 @@ public class BoardController {
 		return "board/write";
 	}
 	
+	@Autowired AtchFileRepository atchFileRepository;
+
 	@PostMapping("/board/write")
 	public String boardWrite(
 		@ModelAttribute Board board,
@@ -132,7 +135,7 @@ public class BoardController {
 		/* Board 데이터 입력 - 게시글 쓰기 */
 		User user = (User) session.getAttribute("user_info");
 		board.setUser(user);
-		boardRepository.save(board);
+		Board savedBoard = boardRepository.save(board);
 
 		/* AtchFile 데이터 입력 - 파일 첨부 */
 		// 1. 파일 저장 transferTo()
@@ -146,7 +149,10 @@ public class BoardController {
 		}
 
 		// 2. 파일이 저장된 위치와 파일이름 데이터베이스에 입력
-
+		AtchFile atchFile = new AtchFile();
+		atchFile.setFilePath("c:/files/" + oName);
+		atchFile.setBoard(savedBoard);
+		atchFileRepository.save(atchFile);
 
 		return "board/write";
 	}
