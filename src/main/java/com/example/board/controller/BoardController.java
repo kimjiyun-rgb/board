@@ -13,13 +13,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.board.model.AtchFile;
 import com.example.board.model.Board;
 import com.example.board.model.Comment;
 import com.example.board.model.User;
+import com.example.board.repository.AtchFileRepository;
 import com.example.board.repository.BoardRepository;
 import com.example.board.repository.CommentRepository;
 
@@ -35,6 +40,9 @@ public class BoardController {
 
 	@Autowired
 	CommentRepository commentRepository;
+
+	@Autowired
+	AtchFileRepository atchFileRepository;
 
 	@GetMapping("/board/comment/remove")
 	public String commentRemove(
@@ -120,10 +128,29 @@ public class BoardController {
 	}
 
 	@PostMapping("/board/write")
-	public String boardWrite(@ModelAttribute Board board) {
+	public String boardWrite(
+			@ModelAttribute Board board,
+			@RequestParam("file") MultipartFile mFile) {
+		/* Board 데이터 입력 - 게시글 쓰기 */
 		User user = (User) session.getAttribute("user_info");
 		board.setUser(user);
-		boardRepository.save(board);
+		Board savedBoard = boardRepository.save(board);
+
+		/* AtchFile 데이터 입력 - 파일 첨부 */
+		// 1. 파일 저장 transferTo()
+		String oName = mFile.getOriginalFilename();
+		try {
+			mFile.transferTo(new File("c:/springboot/" + oName));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// 2. 파일이 저장된 위치와 파일이름 데이터베이스에 입력
+		AtchFile atchFile = new AtchFile();
+		atchFile.setFilePath("c:/springboot/" + oName);
+		atchFile.setBoard(savedBoard);
 
 		return "board/write";
 	}
