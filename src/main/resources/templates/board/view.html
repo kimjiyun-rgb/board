@@ -36,6 +36,14 @@
     </li>
   </ul>
 </div>
+
+<!-- 댓글 입력 폼 -->
+<form action="/board/comment/add" method="post">
+  <input type="hidden" name="boardId" th:value="${board.id}">
+  <input type="text" name="comment">
+  <button>댓글 작성</button>
+</form>
+
 <script>
   const delBtn = document.querySelector('[id=delete]');
   delBtn.addEventListener('click', (event) => {
