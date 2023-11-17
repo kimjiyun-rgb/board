@@ -52,6 +52,7 @@
       <button th:onclick="location='/board/comment/remove?id=[[${comment.id}]]'">삭제</button>
     </li>
   </ul>
+
   <script>
     const delBtn = document.querySelector('[id=delete]');
     delBtn.addEventListener('click', (event) =>
