@@ -44,7 +44,7 @@ public class BoardController {
 		comment.setUser(user);
 
 		commentRepository.save(comment);
-		return "redirect:/board/list"; // 임시, 에러가 보이지 않도록
+		return "redirect:/board/list" + boardId; // 임시, 에러가 보이지 않도록
 	}
 
 	@GetMapping("/board/delete/{id}")
