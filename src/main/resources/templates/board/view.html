@@ -34,20 +34,20 @@
         <a class="nav-link" th:href="'/board/update/' + ${board.id}" id="update">수정</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" id="delete" th:num="${board.id}">삭제</a>
+        <a class="nav-link" th:href="'/board/delete/' + ${board.id}" id="delete" th:num="${board.id}">삭제</a>
       </li>
     </ul>
   </div>
   <script>
-    document.querySelector('#delete').addEventListener('click', (e) =>
-    {
-      e.preventDefault();
-      if (confirm('삭제하시겠습니까?'))
-      {
-        const num = e.target.getAttribute('num');
-        location = `/board/delete/${num}`;
-      }
-    });
+    // document.querySelector('#delete').addEventListener('click', (e) =>
+    // {
+    //   e.preventDefault();
+    //   if (confirm('삭제하시겠습니까?'))
+    //   {
+    //     const num = e.target.getAttribute('num');
+    //     location = `/board/delete/${num}`;
+    //   }
+    // });
   </script>
 
   <div th:replace="common/footer">
