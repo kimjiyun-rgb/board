@@ -131,6 +131,10 @@ public class BoardController {
 	public String boardWrite(
 			@ModelAttribute Board board,
 			@RequestParam("file") MultipartFile mFile) {
+		if (board.getTitle().equals("") || board.getContent().equals("")) {
+			return "redirect:/board/write";
+		}
+
 		/* Board 데이터 입력 - 게시글 쓰기 */
 		User user = (User) session.getAttribute("user_info");
 		board.setUser(user);
