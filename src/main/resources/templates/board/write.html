@@ -18,15 +18,16 @@
     <form method="post" action="/board/write" enctype="multipart/form-data">
       <div class="mb-3">
         <label for="title">Title:</label>
-        <input type="text" class="form-control" id="title" name="title">
+        <input type="text" class="form-control" id="title" name="title" required>
       </div>
       <div class="mb-3">
         <label for="content">Content:</label>
-        <textarea class="form-control" rows="5" name="content" id="content"></textarea>
+        <textarea class="form-control" rows="5" name="content" id="content" required></textarea>
       </div>
       <div class="mb-3">
         <label for="file">파일첨부:</label>
-        <input class="form-control" name="file" id="file" type="file">
+        <input class="form-control" name="file" id="file" type="file"
+               accept="image/*">
       </div>
       <div class="d-grid gap-2">
         <button class="btn btn-primary" id="complete">글쓰기</button>

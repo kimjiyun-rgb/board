@@ -3,6 +3,7 @@ package com.example.board.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,9 +25,9 @@ public class Board {
 	@ManyToOne
 	User user; // user_id 로 생성
 
-	@OneToMany(mappedBy = "board")
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
 	List<Comment> comments = new ArrayList<>();
 
-	@OneToMany(mappedBy = "board")
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
 	List<AtchFile> atchFiles = new ArrayList<>();
 }

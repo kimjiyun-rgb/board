@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -128,14 +129,27 @@ public class BoardController {
 	@Autowired AtchFileRepository atchFileRepository;
 
 	@PostMapping("/board/write")
+	@Transactional(rollbackFor = {IOException.class})
+	// 메소드가 시작될 때(before) 자동 저장(auto commit) 기능을 비활성화
+	// 메소드가 종료될 때(after) 수동으로 commit 실행
+	// RuntimeException 계열일 때 Rollback 기능 수행
 	public String boardWrite(
 		@ModelAttribute Board board,
 		@RequestParam("file") MultipartFile mFile
-	) {
+	) throws IOException {
+		// 제목 또는 내용을 작성하지 않은 경우 글쓰기 기능을 실행하지 않음
+		if(board.getTitle().equals("") || board.getContent().equals("")) {
+			return "redirect:/board/write";
+		}
+
 		/* Board 데이터 입력 - 게시글 쓰기 */
 		User user = (User) session.getAttribute("user_info");
 		board.setUser(user);
 		Board savedBoard = boardRepository.save(board);
+
+		// throw new RuntimeException();
+		// System.out.println(4 / 0); // 산술연산 예외!  Unchecked Exception
+		// new File("").createNewFile();  // Checked Exception
 
 		/* AtchFile 데이터 입력 - 파일 첨부 */
 		// 1. 파일 저장 transferTo()
