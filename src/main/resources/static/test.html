@@ -5,9 +5,16 @@
 <script>
   function 결과(s) { // callback 함수
     initMap(s.coords.latitude, s.coords.longitude);
+    showMarker(s.coords.latitude, s.coords.longitude);
   }
 
   navigator.geolocation.getCurrentPosition(결과);
+
+  async function showMarker(lat, lng) {
+    const data = await fetch(`/map/getPoint?lat=${lat}&lng=${lng}&km=50`);
+    const result = await data.json();
+    console.log(result);
+  }
 
   function initMap(lat, lng) {
     const container = document.querySelector('#map');
