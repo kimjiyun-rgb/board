@@ -3,6 +3,8 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f5e412de8a908b1b8fd2e279c35a69b"></script>
 
 <script>
+  let map;
+
   function 결과(s) { // callback 함수
     initMap(s.coords.latitude, s.coords.longitude);
     showMarker(s.coords.latitude, s.coords.longitude);
@@ -14,6 +16,23 @@
     const data = await fetch(`/map/getPoint?lat=${lat}&lng=${lng}&km=50`);
     const result = await data.json();
     console.log(result);
+    for(let i = 0; i < result.length; i++) {
+      let obj = result[i];
+      let title = obj.title;
+      let latitude = obj.latitude;
+      let longitude = obj.longitude;
+      console.log(title, latitude, longitude);
+      const marker = new kakao.maps.Marker({
+        position: new kakao.maps.LatLng(latitude, longitude)
+      });
+      marker.setMap(map);
+    }
+    // for(let obj of result) {
+      
+    // }
+    // result.forEach((v) => {
+
+    // });
   }
 
   function initMap(lat, lng) {
@@ -23,7 +42,7 @@
       level: 8
     };
 
-    const map = new kakao.maps.Map(container, options);
+    map = new kakao.maps.Map(container, options);
 
     const marker = new kakao.maps.Marker({
         position: new kakao.maps.LatLng(lat, lng)
