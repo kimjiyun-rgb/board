@@ -25,7 +25,7 @@ public class Mailer {
       ses.setDebug(true);
       MimeMessage msg = new MimeMessage(ses); // 메일의 내용을 담을 객체
       msg.setSubject(subject); // 제목
-      Address fromAddr = new InternetAddress("ggoreb.kim@gmail.com");
+      Address fromAddr = new InternetAddress("seorabkim@gmail.com");
       msg.setFrom(fromAddr); // 보내는 사람
       Address toAddr = new InternetAddress(to);
       msg.addRecipient(Message.RecipientType.TO, toAddr); // 받는 사람
