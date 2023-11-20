@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MapController {
 	@Autowired
 	PointRepository pointRepository;
-	
+
 	@GetMapping("/map")
 	public String map() {
 		return "map/map";
@@ -47,11 +47,11 @@ public class MapController {
 
 		// List<Point> list = pointRepository.findAll();
 		// for (int i = list.size() - 1; i >= 0; i--) {
-		// 	double dist = 
-		// 		distance(lat, lng, list.get(i).getLatitude(), list.get(i).getLongitude());
-		// 	if (dist > km) {
-		// 		list.remove(i);
-		// 	}
+		// double dist =
+		// distance(lat, lng, list.get(i).getLatitude(), list.get(i).getLongitude());
+		// if (dist > km) {
+		// list.remove(i);
+		// }
 		// }
 		return list;
 	}

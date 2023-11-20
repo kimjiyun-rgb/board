@@ -129,10 +129,13 @@ public class BoardController {
 	}
 
 	@PostMapping("/board/write")
-	@Transactional
+	@Transactional(rollbackFor = { IOException.class })
+	// 메소드가 시작될 때(before) 자동 저장(auto commit) 기능을 비활성화
+	// 메소드가 종료될 때(after) 수동으로 commit 실행
+	// RuntimeException 계열일 때 Rollback 기능 수행
 	public String boardWrite(
 			@ModelAttribute Board board,
-			@RequestParam("file") MultipartFile mFile) {
+			@RequestParam("file") MultipartFile mFile) throws IOException {
 		// 제목 또는 내용을 작성하지 않은 경우 글쓰기 기능을 실행하지 않음
 		if (board.getTitle().equals("") || board.getContent().equals("")) {
 			return "redirect:/board/write";
@@ -142,6 +145,10 @@ public class BoardController {
 		User user = (User) session.getAttribute("user_info");
 		board.setUser(user);
 		Board savedBoard = boardRepository.save(board);
+
+		// throw new RuntimeException();
+		// System.out.println(4 / 0); // 산술연산 예외! Unchecked Exception
+		// new File("").createNewFile(); // Checked Exception
 
 		/* AtchFile 데이터 입력 - 파일 첨부 */
 		// 1. 파일 저장 transferTo()

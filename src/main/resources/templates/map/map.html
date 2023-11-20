@@ -27,11 +27,11 @@
   <script>
     const container = document.getElementById('map');
     const options = {
-      center: new kakao.maps.LatLng(37.4980239, 127.027572), // 강남역
+      center: new kakao.maps.LatLng(36.4800579897497, 127.289039408864), // 강남역
       level: 4
     };
     const map = new kakao.maps.Map(container, options);
-    const markerPosition = new kakao.maps.LatLng(37.4980239, 127.027572);
+    const markerPosition = new kakao.maps.LatLng(36.4800579897497, 127.289039408864);
     const marker = new kakao.maps.Marker({
       position: markerPosition
     });
@@ -41,14 +41,16 @@
       url: '/map/getPoint',
       method: 'get',
       params: {
-        lat: 37.4980239, 
-        lng: 127.027572,
-        km: 10
+        lat: 36.4800579897497,
+        lng: 127.289039408864,
+        km: 30
       }
     });
-    data.then(function (result) {
+    data.then(function (result)
+    {
       console.log(result.data);
-      for (let i = 0; i < result.data.length; i++) {
+      for (let i = 0; i < result.data.length; i++)
+      {
         const marker = new kakao.maps.Marker({
           map: map,
           position: new kakao.maps.LatLng(
