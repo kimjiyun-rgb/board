@@ -18,10 +18,11 @@ public class ContactController {
 	public String contact(String email, String subject, String content) {
 		Mailer mailer = new Mailer();
 		mailer.sendMail(
-			"seorab@naver.com", // 수신 이메일(관리자)
-			"[" + email + "]" + subject, // [작성자 이메일]제목
-			content, // 본문
-			new SMTPAuthenticator()); // 인증
+				"mint_0430@naver.com", // 수신 이메일(관리자)
+				"[" + email + "]" + subject, // [작성자 이메일]제목
+				"<h1>HTML적용</h1><u>" + content
+						+ "</u><img src='C:/springboot/board/src/main/resources/static/images/Screenshot_20230307-143019_YouTube.jpg'>", // 본문
+				new SMTPAuthenticator()); // 인증
 		return "redirect:/contact";
 	}
 }
