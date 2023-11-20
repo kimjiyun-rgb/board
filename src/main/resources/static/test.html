@@ -23,7 +23,8 @@
       let longitude = obj.longitude;
       console.log(title, latitude, longitude);
       const marker = new kakao.maps.Marker({
-        position: new kakao.maps.LatLng(latitude, longitude)
+        position: new kakao.maps.LatLng(latitude, longitude),
+        title: title
       });
       marker.setMap(map);
     }
@@ -44,9 +45,17 @@
 
     map = new kakao.maps.Map(container, options);
 
+    const imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png';
+    const imageSize = new kakao.maps.Size(64, 69);
+    const imageOption = {offset: new kakao.maps.Point(27, 69)};
+
+    const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
+
     const marker = new kakao.maps.Marker({
-        position: new kakao.maps.LatLng(lat, lng)
+        position: new kakao.maps.LatLng(lat, lng),
+        image: markerImage
     });
     marker.setMap(map);
+
   }
 </script>
