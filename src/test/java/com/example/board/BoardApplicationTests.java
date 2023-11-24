@@ -42,9 +42,9 @@ class BoardApplicationTests {
 				// Header
 				.setHeaderParam("typ", "JWT")
 				// Payload - Registered Claim
-				.setSubject("제목").setIssuer("ggoreb.com").setAudience("service user")
+				.setSubject("제목").setIssuer("kimjiyun-rgb.com").setAudience("service user")
 				// Payload - Secret Claim
-				.claim("username", "ggoreb").claim("password", 1234).claim("hasPermission", "ADMIN")
+				.claim("username", "kimjiyun-rgb").claim("password", 1234).claim("hasPermission", "ADMIN")
 				// Signature
 				.signWith(signingKey, signatureAlgorithm);
 		long now = System.currentTimeMillis();
